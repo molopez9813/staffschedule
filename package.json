@@ -2,10 +2,13 @@
   "name": "nursescheduler",
   "version": "1.0.0",
   "type": "module",
+  "Homepage":"Https://molopez9813.github.io/staffschedule/"
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "predeploy":"npm run build"
+    "deploy":gh-pages -d dist"
     "build:mobile": "npm run build && npx cap sync",
     "open:ios": "npx cap open ios",
     "open:android": "npx cap open android",
