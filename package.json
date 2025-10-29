@@ -2,7 +2,7 @@
   "name": "nursescheduler",
   "version": "1.0.0",
   "type": "module",
-  "Homepage":"Https://molopez9813.github.io/staffschedule/"
+  "Homepage":"https://molopez9813.github.io/staffschedule/"
   "scripts": {
     "dev": "vite",
     "build": "vite build",
