@@ -806,6 +806,13 @@ function App() {
       return
     }
     
+     // Check if staff member is a director - directors should not float
+    const users = getUsers()
+    const staffUser = users.find(u => u.email === staff.userId)
+    if (staffUser && (staffUser.role === 'Director' || staffUser.role === 'Coordinator')) {
+      alert('Directors and Coordinators do not float. Please select a different staff member.')
+      return
+    }
     const floatLog = getFloatLog()
     const newFloat = {
       id: `float-${Date.now()}`,
@@ -836,7 +843,14 @@ function App() {
       alert('Staff member not found')
       return
     }
-    
+
+     // Check if staff member is a director - directors should not be on call
+    const users = getUsers()
+    const staffUser = users.find(u => u.email === staff.userId)
+    if (staffUser && (staffUser.role === 'Director' || staffUser.role === 'Coordinator')) {
+      alert('Directors and Coordinators are not placed on call. Please select a different staff member.')
+      return
+    }
     const onCallLog = getOnCallLog()
     const newOnCall = {
       id: `oncall-${Date.now()}`,
