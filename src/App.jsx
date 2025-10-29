@@ -705,6 +705,12 @@ function App() {
     if (shiftType) {
       filteredStaff = workingStaff.filter(shift => shift.shiftType === shiftType)
     }
+
+    // Filter out directors and coordinators - they don't float
+    filteredStaff = filteredStaff.filter(shift => {
+      const staffUser = users.find(u => u.email === shift.userId)
+      return staffUser && staffUser.role !== 'Director' && staffUser.role !== 'Coordinator'
+    })
     
     if (filteredStaff.length === 0) return null
 
@@ -747,6 +753,12 @@ function App() {
     if (shiftType) {
       filteredStaff = workingStaff.filter(shift => shift.shiftType === shiftType)
     }
+    
+     // Filter out directors and coordinators - they don't go on call
+    filteredStaff = filteredStaff.filter(shift => {
+      const staffUser = users.find(u => u.email === shift.userId)
+      return staffUser && staffUser.role !== 'Director' && staffUser.role !== 'Coordinator'
+    })
     
     if (filteredStaff.length === 0) return null
 
@@ -4559,11 +4571,17 @@ function App() {
                         required
                       >
                         <option value="">Select staff member...</option>
-                        {getWorkingStaffToday().map((staff, index) => (
-                          <option key={index} value={staff.userName}>
-                            {staff.userName}
-                          </option>
-                        ))}
+                        {getWorkingStaffToday()
+                          .filter(staff => {
+                            const users = getUsers()
+                            const staffUser = users.find(u => u.email === staff.userId)
+                            return staffUser && staffUser.role !== 'Director' && staffUser.role !== 'Coordinator'
+                          })
+                          .map((staff, index) => (
+                            <option key={index} value={staff.userName}>
+                              {staff.userName}
+                            </option>
+                          ))}
                       </select>
                     ) : (
                       <input
